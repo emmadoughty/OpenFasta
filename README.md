@@ -10,9 +10,11 @@ OpenFasta rearranges and re-orientates fasta files to begin with a user-provided
 
 NB: Do not use both -f and -d 
 
+```bash
 OpenFasta.sh -o [FILE] -f [FILE] -d [DIRECTORY]
-  -o \t File containing opening sequence only
-  -f \t Fasta file to reorientate
-  -d \t Directory of fasta files to reorientate
+  -o  File containing opening sequence only
+  -f  Fasta file to reorientate
+  -d  Directory of fasta files to reorientate
+```
 
 Written for use with Ubuntu 16.
