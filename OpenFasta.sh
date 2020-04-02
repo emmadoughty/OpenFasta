@@ -31,6 +31,10 @@ while getopts "o:f:d:h" opt; do
   usage
   exit 0
   ;;
+  * )
+  usage
+  exit 0
+  ;;
   esac
 done
 
@@ -68,7 +72,7 @@ process() {
   to_def="${ori}"; define_sections
   echo -e "${header}" > "${tmp}"
   grep -o "${open}.*$" "${ori}" >> "${tmp}"
-  str=$(grep -o "\S*${open}" "${ori}"); beg=${str%%"${open"}}
+  str=$(grep -o "\S*${open}" "${ori}"); beg=${str%%"${open}"}
   sed -e "$ s/$/${beg}/" "${tmp}" > "${out}"
   rm "${tmp}"
   echo -e "\nRearranging ${ori} and saving as ${out}"
@@ -85,7 +89,7 @@ split() {
   spl_init="${to_spl%.*}"_spl.fa
   to_def="${to_spl}"; define_sections
   first=$(echo "${seq}" | cut -c1-"${len}"); last="${seq#"first"}"
-  echo -e "${header}\n${last}${first}" > ${spl_init}
+  echo -e "${header}\n${last}${first}" > "${spl_init}"
   unset_vars
 }
 identify_ori() {
@@ -120,15 +124,15 @@ check_file() {
       if [[ $(cat "${ori_init}" | wc -l) -gt 2 ]]; then
         echo "rearranging"
         init="${ori_init}_rearranged"
-        awk '/^>/ {printf("%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < "$ori_init" > $init
+        awk '/^>/ {printf("%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' < "$ori_init" > "$init"
         else init="${ori_init}"
       fi
       identify_ori
     else # Is fasta but not exactly 1 >, therefore multifasta
-      echo -e "\nWARNING:"${ori_init}" is a multifa! Split and try again."
+      echo -e "\nWARNING:${ori_init} is a multifa! Split and try again."
     fi
   else
-    echo -e "\nWARNING:"${ori_init}" is not a fasta file!"
+    echo -e "\nWARNING:${ori_init} is not a fasta file!"
   fi
 }
 #Makes multiline fasta into single line fasta
