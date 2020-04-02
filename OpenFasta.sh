@@ -51,7 +51,7 @@ define_sections() {
   while [[ -z "${header}" ]]
   do
     # Add 1 to the number of lines to check (starts at 0, so becomes 1 first time through)
-    headline=$(( "${headline}" + 1 ))
+    headline="$(( ${headline} + 1 ))"
     # Get the first $headline lines, take the last of them and trim off any trailing whitespace
     header=$(head -n"${headline}" "${to_def}" | tail -n1 | sed 's/\s*$//')
     # End of loop, will now test if the last line read is blank again, if not loop ends and sets the header
